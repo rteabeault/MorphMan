@@ -5,7 +5,7 @@ aqt = MagicMock()
 aqt.mw = MagicMock()
 aqt.mw.pm.profileFolder = None
 aqt.mw.col = None
-aqt.mw.toolbar.draw = lambda: None
+aqt.mw.toolbar = MagicMock()
 
 aqt.browser = MagicMock()
 
