@@ -5,11 +5,12 @@ aqt = MagicMock()
 aqt.mw = MagicMock()
 aqt.mw.pm.profileFolder = None
 aqt.mw.col = None
-aqt.mw.toolbar = MagicMock()
+aqt.mw.toolbar.draw = lambda: None
 
 aqt.browser = MagicMock()
 
 sys.modules['aqt'] = aqt
+sys.modules['aqt.mw'] = aqt.mw
 sys.modules['aqt.browser'] = aqt.browser
 sys.modules['aqt.qt'] = MagicMock()
 sys.modules['aqt.utils'] = MagicMock()
