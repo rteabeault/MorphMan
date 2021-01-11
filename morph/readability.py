@@ -20,7 +20,6 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtWebSockets,  QtNetwork
 
 from .morphemes import Morpheme, MorphDb, getMorphemes, altIncludesMorpheme
-from .morphemizer import getAllMorphemizers
 from .preferences import get_preference as cfg, update_preferences
 from .util import mw
 from anki.utils import stripHTML
@@ -345,7 +344,7 @@ class SettingsDialog(QDialog):
         pass
 
 class AnalyzerDialog(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, morphemizerRegistry, parent=None):
         super(AnalyzerDialog, self).__init__(parent)
 
         self.mw = parent
@@ -353,7 +352,7 @@ class AnalyzerDialog(QDialog):
         self.ui.setupUi(self)
 
         # Init morphemizer
-        self.ui.morphemizerComboBox.setMorphemizers(getAllMorphemizers())
+        self.ui.morphemizerComboBox.setMorphemizerRegistry(morphemizerRegistry)
         self.ui.morphemizerComboBox.setCurrentByName(cfg('DefaultMorphemizer'))
         self.ui.morphemizerComboBox.currentIndexChanged.connect(lambda idx: self.save_morphemizer())
 
@@ -1238,6 +1237,6 @@ class AnalyzerDialog(QDialog):
                         mw.progress.finish()
 
 def main():
-    mw.mm = AnalyzerDialog(mw)
+    mw.mm = AnalyzerDialog(mw.morphemizerRegistry, mw)
     mw.mm.show()
 
